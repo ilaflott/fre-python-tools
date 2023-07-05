@@ -21,9 +21,12 @@ requirements:
 
 test:
   imports:
-    - fre_python_tools
     - metomi.isodatetime
     - cmor
+    - fre_python_tools
+    - fre_python_tools.generate_time_averages
+  commands:
+    - generate-time-averages --help
 
 about:
   home: https://github.com/NOAA-GFDL/fre-python-tools

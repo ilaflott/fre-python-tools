@@ -1,70 +1,64 @@
 # fre-python-tools
 Python-based tools and interfaces to be used by FRE workflows
 
-## Install with miniconda and pip (recommended)
-Some prerequisites require miniconda, so the current recommendation is to
-install the prerequisites with minconda first, then install fre-python-tools
-via pip. This method has the advantage of installing your local changes.
+## Install fre-python-tools and dependencies with conda
 
-1. Install dependencies
+`fre-python-tools` is available on NOAA-GFDL's anaconda channel.
+To create a new conda environment containing `fre-python-tools`:
 
+```
+conda create --name fre-python-tools fre-python-tools --channel=noaa-gfdl
+```
+
+Then, activate the environment to bring fre-python-tools libraries and scripts into your PATH.
+
+```
+conda activate fre-python-tools
+```
+
+## Install dependencies only with conda
+
+For developing `fre-python-tools`, we recommend installing the dependencies
+with conda. Then, one can import and use `fre-python-tool` libraries
+and run `pytest` tests.
+
+1. Create conda environment with fre-python-tool dependencies
 ```
 conda env create --file environment.yml
 ```
 
-2. Install fre-python-tools
+2. Activate conda environment
 
 ```
-pip install .
+conda activate fre-python-tools-dev
 ```
 
 3. Run tests
 
-```
-pip install pytest
-pytest
-```
-
-## Install with miniconda alone
-The miniconda environment.yml file installs the main branch of the
-fre-python-tools repository, so if you do not need to install local changes,
-you may use simply:
+While fre-python-tools is not installed in your environment,
+you can run tests on the checked-out code with `python -m pytest`
+(compared to `pytest` which does NOT add the current directory to `sys.path`.)
 
 ```
-conda env create --file environment.yml
+python -m pytest
 ```
 
-## Install with pip alone (not generally recommended)
-This method will not install all prerequisites, so is not recommended except for
-purposes where the conda prerequisites are not needed.
+There should be no errors. You may get a harmless
+warning regarding the deprecation of `sre_constants` within the `metomi.isodatetime`
+package.
 
-1. Create virtual python environment
+## Build conda package
 
-```
-python3 -m venv /path/to/your/install
-```
+To test the conda packaging, you can build the fre-python-tools package using conda-build.
 
-2. Activate the environment
+1. Install conda-build (into either an isolated conda environment or the base environment)
 
 ```
-source /path/to/your/install/bin/activate
+conda install conda-build
 ```
 
-3. Upgrade pip and setuptools
+2. Build fre-python-tools
 
 ```
-pip install --upgrade pip setuptools
-```
-
-4. Install fre-python-tools and dependencies
-
-```
-pip install .
-```
-
-5. Run tests
-
-```
-pip install pytest
-pytest
+conda build .
 ```
